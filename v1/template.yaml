@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Faster functions - v1
+
+Resources:
+  ## DynamoDB table
+  DDBtable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+      - AttributeName: ID
+        AttributeType: S
+      KeySchema:
+      - AttributeName: ID
+        KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
+  ## Add to DynamoDB function
+  AddToDDBfunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: addToDDBfunction/
+      Handler: app.handler
+      Runtime: nodejs12.x
+      MemorySize: 128
+      Timeout: 3      
+      Environment:
+        Variables:
+          DDBtable: !Ref DDBtable
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref DDBtable      
+      Events:
+        PutItemEvent:
+          Type: HttpApi
+          Properties:
+            Path: /
+            Method: get
+
+Outputs:
+  HttpApiUrl:
+    Description: URL of your API endpoint
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/" 
