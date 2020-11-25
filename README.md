@@ -24,7 +24,7 @@ Important: this application uses various AWS services and there are costs associ
 
 2. Clone the repo onto your local development machine:
 ```
-git clone https://github.com/aws-samples/TBD
+git clone https://github.com/aws-samples/building-faster-aws-lambda-functions
 ```
 
 3. To deploy a version, navigate to the version directory and run:
@@ -34,7 +34,7 @@ sam deploy --guided
 ```
 During the prompts, enter the stack name, your preferred Region, and then accept the defaults. 
 
-If you have any questions, please contact the author or raise an issue in the GitHub repo.
+If you have any questions, please [contact the author](https://twitter.com/jbesw) or raise an issue in the GitHub repo.
 
 ==============================================
 
